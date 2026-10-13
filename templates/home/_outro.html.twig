@@ -1,0 +1,29 @@
+{% import 'macros/ui.html.twig' as ui %}
+{#
+ # Conclusion : deux images qui grandissent en entrant, phrase qui se remplit, bandeau défilant
+ # dont la vitesse et le sens suivent le scroll (assets/js/outro.js).
+ #}
+{% set first = outro_images[0] ?? null %}
+{% set second = outro_images[1] ?? null %}
+<section class="outro" data-bg="light">
+    <div class="grid outro__grid">
+        {% if first %}
+            <figure class="cell outro__img outro__img--a">{{ ui.img(first.image, first.alt) }}</figure>
+        {% endif %}
+        <p class="cell state outro__state" data-fill>Nous créons des marques et des produits digitaux pour celles et ceux qui veulent aller au-delà de l’ordinaire.</p>
+        {% if second %}
+            <figure style="object-position : center center" class="cell outro__img outro__img--b">{{ ui.img(second.image, second.alt) }}</figure>
+        {% endif %}
+    </div>
+
+    {# Deux moitiés identiques (4 + 4) pour une boucle sans à-coup. #}
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+            {% set colors = ['pink', 'blue', 'lime', 'orange'] %}
+            {% for i in 0..7 %}
+                {# <span>nous sommes {{ site.name }}</span> #}
+                {# <i class="marquee__sq" style="--c:var(--{{ colors[i % 4] }})"></i> #}
+            {% endfor %}
+        </div>
+    </div>
+</section>

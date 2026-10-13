@@ -1,0 +1,516 @@
+/*
+ * S² · styles globaux : tokens, base, grille, typographie, composants, navbar et menu.
+ *
+ * Mise en page : grille de 4 colonnes tracée en filets fins (2 sur mobile).
+ * Le texte se cale dans les cellules ; le monogramme S² et les médias cassent la grille.
+ * Le fond passe du blanc au noir au scroll (assets/js/theme.js) ; la couleur vient
+ * de la peinture du hero et des images.
+ *
+ * Les couleurs d'accent sont aussi lues par le JS (peinture, showreel) :
+ * gardez-les au format hexadécimal #rrggbb.
+ */
+:root {
+    --paper: #ffffff;
+    --ink: #0b0b0b;
+    --snow: #f4f4f1;
+    --night: #0d0e14;
+
+    /* Fond et texte courants, animés au scroll par theme.js */
+    --bg: #ffffff;
+    --fg: #0b0b0b;
+
+    /* Accents */
+    --blue: #2b3cff;
+    --pink: #ff4f9a;
+    --lime: #c6f432;
+    --orange: #ff6a1a;
+    --lilac: #a08cff;
+
+    /* Teintes dérivées du thème courant */
+    --dim: color-mix(in srgb, var(--fg) 20%, var(--bg));
+    --soft: color-mix(in srgb, var(--fg) 58%, var(--bg));
+    --line: color-mix(in srgb, var(--fg) 14%, transparent);
+
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
+    --f-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --gutter: clamp(16px, 2.2vw, 36px);
+    --cell: clamp(10px, .9vw, 16px);
+    --cols: 4;
+    --nav-h: 64px;
+    --step-head: clamp(52px, 7svh, 76px);
+
+    --t-label: 11px;
+    --t-body: 15px;
+    --t-lead: clamp(17px, 1.35vw, 22px);
+    --t-state: clamp(30px, 4.1vw, 74px);
+    --t-title: clamp(48px, 10.5vw, 190px);
+
+    --ease: cubic-bezier(.65, .05, 0, 1);
+    color-scheme: light;
+}
+
+/* ---------- base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg);
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--f-display);
+    font-size: var(--t-body);
+    line-height: 1.45;
+    font-weight: 400;
+    font-variation-settings: "wdth" 100;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+    overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: inherit;
+}
+
+img,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+h1, h2, h3, p, ul, ol, figure {
+    margin: 0;
+}
+
+ul,
+ol {
+    padding: 0;
+    list-style: none;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+::selection {
+    background: var(--blue);
+    color: var(--paper);
+}
+
+:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+}
+
+/* ---------- grille ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    padding-inline: var(--gutter);
+}
+
+.cell {
+    min-width: 0;
+    padding-inline: var(--cell);
+}
+
+/* Filets verticaux fixes : blancs en mode « différence », donc visibles sur tous les fonds. */
+.lines {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    padding-inline: var(--gutter);
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.lines i {
+    border-left: 1px solid rgba(255, 255, 255, .14);
+}
+
+.lines i:last-child {
+    border-right: 1px solid rgba(255, 255, 255, .14);
+}
+
+/* ---------- typographie ---------- */
+.label {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    line-height: 1.4;
+    letter-spacing: .01em;
+    text-transform: lowercase;
+    font-weight: 400;
+    font-stretch: normal;
+    font-variation-settings: normal;
+}
+
+.state {
+    font-size: var(--t-state);
+    line-height: 1.02;
+    letter-spacing: -.04em;
+    font-weight: 500;
+    text-wrap: balance;
+}
+
+.state--s {
+    font-size: clamp(26px, 3.3vw, 58px);
+}
+
+.serif {
+    font-family: var(--f-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.015em;
+    font-stretch: normal;
+    font-variation-settings: normal;
+}
+
+/* Remplissage horizontal des textes [data-fill] (lignes créées par assets/js/text-fill.js) */
+.fl {
+    display: block;
+}
+
+.fl__in {
+    display: inline-block;
+    padding: .08em .12em .16em 0;
+    margin: -.08em -.12em -.16em 0;
+    background-image: linear-gradient(90deg, var(--fg) 0 46%, var(--dim) 54% 100%);
+    background-size: 225% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* ---------- monogramme S² (hero et footer) ----------
+ * Boîte calée sur l'encre des glyphes d'Archivo (largeur 125, graisse 800) :
+ * 1.153em de large, .712em de haut ; le « 2 » est à 50 % et aligné sur le haut du « S ».
+ */
+.mark {
+    position: relative;
+    width: 1.153em;
+    height: .712em;
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    letter-spacing: 0;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.mark__s,
+.mark__sq {
+    position: absolute;
+    top: -.134em;
+    line-height: 1;
+}
+
+.mark__s {
+    left: -.05em;
+}
+
+.mark__sq {
+    font-size: .5em;
+    left: 1.575em;
+}
+
+/* ---------- liens & boutons ---------- */
+.roll {
+    display: inline-flex;
+    overflow: hidden;
+    vertical-align: top;
+    line-height: 1.3;
+    height: 1.3em;
+}
+
+.roll__in {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+    transition: transform .6s var(--ease);
+}
+
+.roll__in::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+}
+
+.roll:hover .roll__in,
+.roll:focus-visible .roll__in {
+    transform: translateY(-100%);
+}
+
+.link {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    text-transform: lowercase;
+}
+
+.btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .8em;
+    padding: .95em 1.15em .95em .95em;
+    border: 1px solid currentColor;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    line-height: 1;
+    text-transform: lowercase;
+    letter-spacing: .01em;
+    color: var(--fg);
+    isolation: isolate;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: color .5s var(--ease);
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--fg);
+    transform: scaleY(0);
+    transform-origin: 50% 100%;
+    transition: transform .55s var(--ease);
+    z-index: -1;
+}
+
+.btn__sq {
+    width: .62em;
+    height: .62em;
+    background: currentColor;
+    flex: none;
+    transition: transform .55s var(--ease), background-color .3s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    color: var(--bg);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+    transform: scaleY(1);
+}
+
+.btn:hover .btn__sq,
+.btn:focus-visible .btn__sq {
+    background: var(--pink);
+    /* transform: rotate(45deg) scale(.9); */
+}
+
+/* ---------- navbar ---------- */
+.nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    padding-top: env(safe-area-inset-top, 0px);
+    color: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+}
+
+.nav .grid {
+    height: var(--nav-h);
+    align-items: center;
+}
+
+.nav a,
+.nav button {
+    pointer-events: auto;
+}
+
+.nav__logo {
+    display: inline-flex;
+    align-items: flex-start;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    letter-spacing: -.04em;
+}
+
+.nav__logo sup {
+    font-size: .5em;
+    line-height: 1;
+    margin-left: .05em;
+    vertical-align: baseline;
+}
+
+.nav__tag {
+    line-height: 1.3;
+}
+
+.nav__links {
+    display: flex;
+    gap: clamp(14px, 1.8vw, 28px);
+    font-family: var(--f-mono);
+    font-size: 12px;
+}
+
+.nav__end {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--f-mono);
+    font-size: 12px;
+}
+
+/* ---------- menu plein écran ---------- */
+.menu {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    --bg: var(--ink);
+    --fg: var(--snow);
+    --dim: color-mix(in srgb, var(--snow) 22%, var(--ink));
+    background: var(--ink);
+    color: var(--snow);
+    padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 5vh);
+    padding-bottom: 40px;
+    overflow-y: auto;
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    transition: clip-path .9s var(--ease), visibility 0s linear .9s;
+}
+
+.is-menu .menu {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition: clip-path .9s var(--ease), visibility 0s;
+}
+
+.menu__grid {
+    row-gap: 36px;
+}
+
+.menu__links {
+    grid-column: 2 / span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__link {
+    display: block;
+    overflow: hidden;
+    font-size: clamp(40px, 6.6vw, 124px);
+    line-height: .94;
+    font-weight: 700;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    letter-spacing: -.05em;
+    transition: color .3s;
+}
+
+.menu__link span {
+    display: inline-block;
+    transform: translateY(105%);
+    transition: transform .9s var(--ease);
+}
+
+.is-menu .menu__link span {
+    transform: none;
+    transition-delay: calc(.15s + var(--i) * .06s);
+}
+
+.menu__link:hover,
+.menu__link:focus-visible {
+    color: var(--pink);
+}
+
+.menu__side {
+    grid-column: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 899px) {
+    :root {
+        --cols: 2;
+        --nav-h: 56px;
+    }
+
+    .lines i:nth-child(n + 3) {
+        display: none;
+    }
+
+    .lines i:nth-child(2) {
+        border-right: 1px solid rgba(255, 255, 255, .14);
+    }
+
+    .nav__tag,
+    .nav__links {
+        display: none;
+    }
+
+    .nav__end {
+        justify-content: flex-end;
+        gap: 22px;
+    }
+
+    .menu__links,
+    .menu__side,
+    .menu__label {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .roll__in,
+    .btn,
+    .btn::before,
+    .btn__sq,
+    .menu,
+    .menu__link span {
+        transition: none;
+    }
+}

@@ -1,0 +1,33 @@
+{#
+ # Manifeste + toile : la carte part d'une cellule de la grille et s'agrandit en plein écran au scroll.
+ # La peinture est en noir et blanc ; elle reprend ses couleurs au pinceau (tablette, ordinateur) ou en fondu (mobile).
+ # Effets : assets/js/reel.js. Image, texte alternatif et étiquette : src/Content/HomeContent.php, méthode reel().
+ #}
+<section class="manifesto" data-bg="light">
+    <div class="grid manifesto__head">
+        {# <p class="cell label">( le manifeste )</p> #}
+        <h2 class="cell state manifesto__title" data-fill>La plupart des marques produisent du contenu. Nous préférons construire des idées.</h2>
+    </div>
+
+    <div class="reel" data-reel>
+        <div class="reel__frame">
+            <div class="reel__media">
+                <img class="reel__img" src="{{ asset(reel.image) }}" alt="{{ reel.alt }}" decoding="async" draggable="false">
+                <canvas class="reel__paint" aria-hidden="true"></canvas>
+            </div>
+            <div class="grid reel__slogan">
+                <p class="cell reel__title"><span class="reel__line"><span>Révélez</span></span> <span class="reel__line"><span>vos <span class="serif">couleurs</span></span></span></p>
+            </div>
+            <div class="reel__caption">
+                {# <p class="label">( le pas de côté )</p> #}
+                <p class="reel__text">Dans un monde d’images infinies, la clarté est devenue rare. Une image défend une idée, une interface change un usage, une marque change notre façon de voir le monde.</p>
+            </div>
+        </div>
+        <div class="reel__meta label">
+            <span>{{ reel.label }}</span>
+            {# Texte d'aide choisi par reel.js selon l'appareil : souris, doigt (pinceau) ou fondu (mobile). #}
+            <span data-reel-hint data-mouse="( survolez pour peindre )" data-touch="( touchez la toile pour peindre )" data-fade="( la couleur arrive en plein écran )"></span>
+        </div>
+    </div>
+</section>
+

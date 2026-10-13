@@ -1,0 +1,30 @@
+{% import 'macros/ui.html.twig' as ui %}
+{#
+ # Studio : les images partent empilées au centre puis prennent leur place et leur taille dans la grille (assets/js/studio.js).
+ # Positions finales : assets/styles/sections/studio.css.
+ #}
+<section class="studio" id="studio" data-bg="light">
+    <div class="studio__stage">
+        <div class="studio__imgs">
+            {% for item in studio_images %}
+                <figure class="studio__img">{{ ui.img(item.image, item.alt) }}</figure>
+            {% endfor %}
+        </div>
+        <div class="grid studio__text">
+            <div class="cell studio__copy">
+                {# <p class="label">( le studio )</p> #}
+                <p class="state state--s" data-fill>On l’a appelé {{ site.name }} parce que tout part de deux S&nbsp;: le signe et le système. Multipliés l’un par l’autre, ils deviennent une marque, un site, une application, une boutique en ligne,</p>
+                <p class="studio__twist"><span class="serif">ou quelque chose d’inattendu.</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid studio__list">
+        <p class="cell label">nous concevons&nbsp;:</p>
+        <ul class="cell studio__items">
+            {% for discipline in disciplines %}
+                <li>{{ discipline }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

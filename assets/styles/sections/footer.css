@@ -1,0 +1,99 @@
+/*
+ * Footer : grand titre, CTA, coordonnées en 4 colonnes, monogramme S² géant.
+ */
+.footer {
+    position: relative;
+    padding-top: clamp(100px, 18vh, 220px);
+    overflow: clip;
+}
+
+.footer__top {
+    row-gap: 24px;
+}
+
+.footer__title {
+    grid-column: 1 / -1;
+    font-size: clamp(44px, 7.4vw, 146px);
+    line-height: .92;
+    letter-spacing: -.055em;
+    font-weight: 800;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    text-wrap: balance;
+}
+
+.footer__title .serif {
+    letter-spacing: -.02em;
+}
+
+.footer__ctas {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.footer__info {
+    margin-top: clamp(70px, 12vh, 140px);
+    padding-block: 26px;
+    row-gap: 30px;
+    border-top: 1px solid var(--line);
+}
+
+.footer__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.footer__col > .label:first-child {
+    margin-bottom: 8px;
+    color: var(--soft);
+}
+
+.footer__col a:hover {
+    color: var(--pink);
+}
+
+.footer__col--end {
+    align-items: flex-end;
+}
+
+/* Le S² du hero revient (composant .stairs, dans hero.css) : au scroll (main.js), il arrive d'en haut à gauche
+   en descendant un escalier tourné vers la droite (--stairs-angle), puis se déplie et se pose droit. */
+.footer__mark {
+    font-size: min(54vw, 74svh);
+    margin: clamp(30px, 6vh, 70px) calc(var(--gutter) + var(--cell)) clamp(16px, 3vh, 30px);
+    --fold: 0;
+    --slide: 0;
+    --away: 0;
+    --rise: 0;
+    --spin: 0;
+    --stairs-angle: -45deg;
+    --stairs-face: #6f6f6f;
+    --stairs-scale: 1.25;
+    --stairs-x: -.04em;
+    --stairs-y: .04em;
+}
+
+.footer__bottom {
+    padding-block: 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    row-gap: 8px;
+    border-top: 1px solid var(--line);
+}
+
+.footer__credit {
+    text-align: right;
+}
+
+@media (max-width: 899px) {
+    .footer__col--end {
+        align-items: flex-start;
+    }
+
+    .footer__credit {
+        text-align: left;
+    }
+}

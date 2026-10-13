@@ -1,0 +1,44 @@
+{% import 'macros/ui.html.twig' as ui %}
+<footer class="footer" id="contact" data-bg="dark">
+    <div class="grid footer__top">
+        <p class="cell label">( contact )</p>
+        <h2 class="cell footer__title">Élevons votre idée <span class="serif">au carré.</span></h2>
+        <div class="cell footer__ctas">
+            {{ ui.btn('prendre rendez-vous', site.bookingUrl) }}
+            {{ ui.btn('écrivez-nous @', site.writeUrl) }}
+        </div>
+    </div>
+
+    <div class="grid footer__info">
+        <div class="cell footer__col">
+            <p class="label">écrire</p>
+            {% for email in site.emails %}
+                <a href="{{ email.href }}" title="{{ email.label }}">{{ email.address }}</a>
+            {% endfor %}
+        </div>
+        <div class="cell footer__col">
+            <p class="label">studio</p>
+            <p>{% for line in site.address %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+            <p class="label">{{ site.hours }}</p>
+        </div>
+        <div class="cell footer__col">
+            <p class="label">suivre</p>
+            {% for social in site.socials %}
+                <a href="{{ social.href }}">{{ social.label }}</a>
+            {% endfor %}
+        </div>
+        <div class="cell footer__col footer__col--end">
+            <button type="button" class="btn" data-top><span class="btn__sq" aria-hidden="true"></span>retour en haut ↑</button>
+        </div>
+    </div>
+
+    {# Le S² du hero revient : il entre par la gauche en escalier et se pose en bas à gauche (main.js). #}
+    <p class="mark footer__mark" data-footer-mark aria-hidden="true">{{ ui.stairs() }}</p>
+
+    <div class="grid footer__bottom label">
+        <p class="cell">© {{ 'now'|date('Y') }} {{ site.name }} studio</p>
+        <a href="#" class="cell">mentions légales</a>
+        <a href="#" class="cell">confidentialité</a>
+        <p class="cell footer__credit">site par {{ site.name }}</p>
+    </div>
+</footer>

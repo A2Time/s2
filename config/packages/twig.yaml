@@ -1,0 +1,9 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        # Données communes (navbar, menu, réseaux, contact) : voir src/Content/SiteContent.php
+        site: '@App\Content\SiteContent'
+
+when@test:
+    twig:
+        strict_variables: true

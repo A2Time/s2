@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{#
+ # Page d'accueil : une section par partial, dans l'ordre de la maquette validée.
+ # Les données en boucle (services, projets, étapes, images) viennent de src/Content/HomeContent.php.
+ # « data-bg » sur chaque section décide du fond noir ou blanc au scroll (assets/js/theme.js).
+ #}
+{% block body %}
+    {{ include('home/_hero.html.twig') }}
+    {{ include('home/_manifeste.html.twig') }}
+    {{ include('home/_studio.html.twig') }}
+    {{ include('home/_services.html.twig') }}
+    {{ include('home/_projets.html.twig') }}
+    {{ include('home/_process.html.twig') }}
+    {{ include('home/_outro.html.twig') }}
+{% endblock %}

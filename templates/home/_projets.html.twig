@@ -1,0 +1,38 @@
+{% import 'macros/ui.html.twig' as ui %}
+{#
+ # Projets : liste façon noth.in, lettres « p r o j e t s » qui montent au scroll,
+ # aperçu image qui suit le curseur (souris uniquement, assets/js/works.js).
+ #}
+<section class="works" id="projets" data-bg="light">
+    <div class="grid works__head">
+        {# <p class="cell label">( projets )</p> #}
+        <h2 class="cell state works__title" data-fill>Les bonnes marques communiquent. Les grandes surprennent.</h2>
+        <p class="cell label works__count">( {{ '%02d'|format(projects_total) }} )</p>
+    </div>
+
+    <p class="works__letters" aria-hidden="true">{% for letter in 'projets'|split('') %}<span>{{ letter }}</span>{% endfor %}</p>
+
+    <div class="works__wrap">
+        <ul class="works__list">
+            {% for project in projects %}
+                <li class="work">
+                    <a href="{{ project.href }}" class="grid work__link">
+                        <span class="cell label work__num">{{ '%02d'|format(loop.index) }}</span>
+                        <span class="cell work__name">{{ project.name }}</span>
+                        <span class="cell work__desc">{{ project.description }}</span>
+                        <span class="cell label work__meta">{{ project.category }} · {{ project.year }} <span class="work__arrow" aria-hidden="true">↗</span></span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="works__preview" aria-hidden="true">
+            {% for project in projects %}
+                <figure>{{ ui.img(project.image) }}</figure>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="grid works__more">
+        <div class="cell">{{ ui.btn('voir les ' ~ projects_total ~ ' projets') }}</div>
+    </div>
+</section>

@@ -1,0 +1,54 @@
+{% import 'macros/ui.html.twig' as ui %}
+{% set total = '%02d'|format(services|length) %}
+{#
+ # Services (inspirés de Santalarch).
+ # Bureau : section épinglée, un service par cran de scroll ; l'intitulé actif passe du gris au blanc
+ # de gauche à droite, l'image change par volet (assets/js/services.js).
+ # Mobile et mouvement réduit : cartes empilées (.svc-cards).
+ #}
+<section class="services" id="services" data-bg="dark">
+    <div class="grid services__head">
+        {# <p class="cell label">( services )</p> #}
+        <p class="cell label services__total">( {{ total }} )</p>
+        <h2 class="cell services__title" data-fill>savoir‑faire</h2>
+        <p class="cell services__intro">Du logotype à la plateforme en ligne, de la stratégie au lancement&nbsp;: un seul studio pour la marque et le digital.</p>
+    </div>
+
+    <div class="services__stage">
+        <div class="grid services__grid">
+            <ol class="cell svc-list">
+                {% for service in services %}
+                    <li class="svc">
+                        <span class="label svc__num">{{ '%02d'|format(loop.index) }}</span>
+                        <span class="svc__name"><span class="svc__base">{{ service.name }}</span><span class="svc__fill" aria-hidden="true">{{ service.name }}</span></span>
+                    </li>
+                {% endfor %}
+            </ol>
+            <div class="cell svc-media">
+                {% for service in services %}
+                    <figure>{{ ui.img(service.image, service.alt) }}</figure>
+                {% endfor %}
+            </div>
+            <div class="cell svc-aside">
+                <p class="label svc-count"><span data-svc-current>01</span> / {{ total }}</p>
+                <div class="svc-descs">
+                    {% for service in services %}
+                        <p class="svc-desc">{{ service.description }}</p>
+                    {% endfor %}
+                </div>
+                {{ ui.roll('( découvrir )', '#', 'link') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="svc-cards">
+        {% for service in services %}
+            <article class="svc-card">
+                <figure>{{ ui.img(service.image, service.alt) }}</figure>
+                <p class="label">{{ '%02d'|format(loop.index) }}</p>
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>

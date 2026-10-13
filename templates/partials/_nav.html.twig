@@ -1,0 +1,18 @@
+{% import 'macros/ui.html.twig' as ui %}
+{# Navbar inspirée de noth.in : logo, accroche, trois liens, langue, bouton menu. Tous les liens en « # ». #}
+<header class="nav">
+    <div class="grid">
+        <div class="cell"><a href="#" class="nav__logo" aria-label="{{ site.name }}, accueil">S<sup>2</sup></a></div>
+        <p class="cell label nav__tag">studio de création<br>marques &amp; digital</p>
+        <nav class="cell nav__links" aria-label="Navigation principale">
+            {% for link in site.navLinks %}
+                {{ ui.roll(link.label, link.href) }}
+            {% endfor %}
+        </nav>
+        <div class="cell nav__end">
+            {% set lang = site.languages|first %}
+            {{ ui.roll(lang.code, lang.href) }}
+            <button class="roll nav__menu" type="button" aria-expanded="false" aria-controls="menu"><span class="roll__in" data-text="menu">menu</span></button>
+        </div>
+    </div>
+</header>

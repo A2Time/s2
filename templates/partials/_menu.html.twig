@@ -1,0 +1,19 @@
+{% import 'macros/ui.html.twig' as ui %}
+{# Menu plein écran, ouvert par le bouton « menu » de la navbar (assets/js/nav.js). #}
+<div class="menu" id="menu" aria-hidden="true">
+    <div class="grid menu__grid">
+        <p class="cell label menu__label">( menu )</p>
+        <nav class="cell menu__links" aria-label="Menu">
+            {% for link in site.menuLinks %}
+                <a href="{{ link.href }}" class="menu__link" style="--i:{{ loop.index0 }}"><span>{{ link.label }}</span></a>
+            {% endfor %}
+        </nav>
+        <div class="cell menu__side">
+            {{ ui.btn('discutons', site.bookingUrl) }}
+            {{ ui.btn('écrivez-nous @', site.writeUrl) }}
+            <p class="label">studio de création<br>marques &amp; digital</p>
+            <p class="label">{{ ui.inline_links(site.socials|slice(0, 2), 'short') }}</p>
+            <p class="label">{{ ui.inline_links(site.languages, 'code') }}</p>
+        </div>
+    </div>
+</div>

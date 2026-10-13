@@ -1,0 +1,243 @@
+/*
+ * Hero : call to action au-dessus du monogramme S² géant, sur une séquence d'images jouée au scroll.
+ * Ordre des calques : le S² (0), le canvas de la vidéo (1), les textes et boutons (2).
+ * Le monogramme est dimensionné pour tenir dans la hauteur restante de l'écran
+ * (300px réservés à la navbar, aux étiquettes et au CTA) sans dépasser la largeur.
+ */
+.hero {
+    position: relative;
+    background: var(--paper);
+    color: var(--ink);
+    isolation: isolate;
+    --mark-f: min(calc((100svh - 300px) / .712), calc((100vw - 2 * var(--gutter) - 2 * var(--cell)) / 1.153));
+}
+
+/* Zone épinglée ; le fond blanc reste visible tant que la première image n'est pas arrivée. */
+.hero__pin {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+    padding-bottom: clamp(14px, 2.2vh, 28px);
+    background: var(--paper);
+    isolation: isolate;
+}
+
+.hero__top {
+    row-gap: 10px;
+    padding-top: clamp(6px, 1.4vh, 16px);
+}
+
+.hero__lang {
+    text-align: right;
+}
+
+.hero__bottom {
+    row-gap: clamp(22px, 3.4vh, 40px);
+    align-items: end;
+}
+
+.hero__cta {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(14px, 2vh, 22px);
+}
+
+.hero__pitch {
+    font-size: var(--t-lead);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    max-width: 24ch;
+    font-weight: 500;
+}
+
+.hero__btns {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.hero__side {
+    grid-column: 4;
+    grid-row: 2;
+    align-self: end;
+    justify-self: end;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: .3em;
+    position: relative;
+    z-index: 2;
+}
+
+.hero__mark {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-inline: var(--cell);
+    font-size: var(--mark-f);
+}
+
+/* Séquence d'images (assets/js/hero-frames.js) : plein cadre, au-dessus du S², sous les textes. */
+.hero__frames {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+.hero__top,
+.hero__cta {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---------- S² en escalier (utilisé par le hero et par le footer) ----------
+ * Le monogramme est copié dans quatre bandes (macro ui.stairs) qui en montrent chacune une tranche :
+ * contremarche du haut, marche, contremarche, marche du bas. Réglages, sur l'élément .mark :
+ * --fold   0 : à plat, 1 : plié en escalier ;
+ * --slide  glissement du S² sur les marches, en em (positif : il descend) ;
+ * --away   0 : en place, 1 : sorti de l'écran par la gauche ;
+ * --rise   0 : en place, 1 : au-dessus de l'écran, -1 : en dessous ;  --spin : rotation dans le plan de l'écran, en degrés ;
+ * --stairs-angle   sens de l'escalier : 45deg, il descend vers la gauche ; -45deg, vers la droite ;
+ * --stairs-tread, --stairs-face   couleurs des marches et des contremarches ;
+ * --stairs-scale, --stairs-x, --stairs-y   taille et place de l'escalier plié.
+ */
+.stairs {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    perspective: 5.35em;
+    transform:
+        translate(
+            calc(var(--fold, 0) * var(--stairs-x, 0em) - var(--away, 0) * 110vw),
+            calc(var(--fold, 0) * var(--stairs-y, 0em) - var(--rise, 0) * 110vh)
+        )
+        rotate(calc(var(--spin, 0) * 1deg))
+        rotateX(calc(var(--fold, 0) * 60deg))
+        rotateZ(calc(var(--fold, 0) * var(--stairs-angle, 45deg)))
+        scale(calc(1 + var(--fold, 0) * (var(--stairs-scale, 1) - 1)));
+}
+
+.stairs__band {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    color: var(--stairs-tread, currentColor);
+}
+
+/* Faces verticales : elles changent de couleur en se pliant, pour lire le relief. */
+.stairs__band:nth-child(odd) {
+    color: color-mix(in srgb, var(--stairs-face, #9a9a9a) calc(var(--fold, 0) * 100%), var(--stairs-tread, currentColor));
+}
+
+.stairs__text {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: .712em;
+    transform: translateY(calc(var(--slide, 0) * 1em));
+}
+
+/* 1 : contremarche du haut, dressée derrière la première marche */
+.stairs__band:nth-child(1) {
+    top: -.869em;
+    height: .925em;
+    transform-origin: center bottom;
+    transform: rotateX(calc(var(--fold, 0) * -90deg));
+}
+
+.stairs__band:nth-child(1) > .stairs__text {
+    top: .869em;
+}
+
+/* 2 : première marche */
+.stairs__band:nth-child(2) {
+    top: .051em;
+    height: .188em;
+}
+
+.stairs__band:nth-child(2) > .stairs__text {
+    top: -.051em;
+}
+
+/* 3 : contremarche qui descend vers la marche du bas */
+.stairs__band:nth-child(3) {
+    top: .236em;
+    height: .188em;
+    transform-origin: top;
+    transform: rotateX(calc(var(--fold, 0) * -90deg));
+}
+
+.stairs__band:nth-child(3) > .stairs__text {
+    top: -.236em;
+}
+
+/* 4 : marche du bas, une hauteur de marche plus bas et plus loin ; assez longue pour que le S² y glisse loin */
+.stairs__band:nth-child(4) {
+    top: .421em;
+    height: 4em;
+    transform: translate3d(0, calc(var(--fold, 0) * -.185em), calc(var(--fold, 0) * -.185em));
+}
+
+.stairs__band:nth-child(4) > .stairs__text {
+    top: -.421em;
+}
+
+/*
+ * S² en escalier (composant .stairs ci-dessus) : réglages du hero.
+ * Au scroll (main.js), --fold le plie, --slide le fait descendre la marche, --away le fait sortir à gauche.
+ */
+.hero__mark {
+    z-index: 0;
+    --fold: 0;
+    --slide: 0;
+    --away: 0;
+    --rise: 0;
+    --stairs-tread: var(--ink); /* couleur des marches, et du S² à plat */
+    --stairs-face: #9a9a9a;     /* couleur des contremarches une fois l'escalier plié */
+    --stairs-scale: 1.1;        /* taille de l'escalier par rapport au S² à plat */
+    --stairs-x: .22em;          /* décalage de l'escalier plié, pour le centrer dans la page */
+    --stairs-y: -.12em;
+}
+
+/* Sans animation : l'escalier est déjà plié, et il n'y a pas de séquence d'images à compter. */
+.no-motion .hero__mark {
+    --fold: 1;
+}
+
+.no-motion .hero__count {
+    display: none;
+}
+
+@media (max-width: 899px) {
+    .hero__cta {
+        grid-column: 1 / -1;
+    }
+
+    .hero__side {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: stretch;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .hero__mark {
+        grid-row: 3;
+        --stairs-scale: .95;
+        --stairs-x: 0em;
+        --stairs-y: -.15em;
+    }
+}

@@ -1,0 +1,176 @@
+/*
+ * Manifeste + toile.
+ * Le cadre .reel__frame couvre tout l'écran ; reel.js le découpe (clip-path) en carte
+ * dans la grille puis l'agrandit jusqu'au plein écran au scroll.
+ * La peinture est en noir et blanc ; la couleur revient au pinceau (tablette, ordinateur)
+ * ou en fondu (mobile, classe .is-color).
+ */
+.manifesto {
+    position: relative;
+    padding-top: clamp(90px, 16vh, 200px);
+}
+
+.manifesto__head {
+    row-gap: 18px;
+    padding-bottom: clamp(50px, 9vh, 110px);
+}
+
+.manifesto__title {
+    grid-column: 2 / span 3;
+}
+
+.reel {
+    position: relative;
+    height: 100svh;
+}
+
+.reel__frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--night);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Mis à l'échelle au scroll : l'image et le calque de couleur du pinceau. */
+.reel__media {
+    position: absolute;
+    inset: 0;
+    transform-origin: 70% 45%;
+}
+
+.reel__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* filter: grayscale(1) contrast(1.12); */
+    transition: filter 1s var(--ease);
+    -webkit-user-drag: none;
+}
+
+/* Fondu (mobile) : toute la toile reprend ses couleurs. */
+.reel.is-color .reel__img {
+    filter: grayscale(0) contrast(1);
+}
+
+/* Pinceau (tablette, ordinateur) : la couleur peinte, dessinée par reel.js. */
+.reel__paint {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+/* Curseur rond, de la taille d'un pinceau, quand l'effet pinceau est actif. */
+.reel[data-effect="pinceau"] .reel__frame {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='15' fill='none' stroke='%23ffffff' stroke-width='1.5'/%3E%3Ccircle cx='18' cy='18' r='15' fill='none' stroke='%230b0b0b' stroke-width='.6'/%3E%3C/svg%3E") 18 18, crosshair;
+}
+
+.reel__meta {
+    position: absolute;
+    top: var(--mt, 16%);
+    left: var(--ml, 50%);
+    width: var(--mw, 44%);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Sans animation, la toile est d'emblée en plein écran : l'étiquette de la carte n'a plus de place. */
+.no-motion .reel__meta {
+    display: none;
+}
+
+/*
+ * Slogan : en haut de la toile, sur la partie claire de la peinture.
+ * Il ne capte pas le pointeur : le pinceau passe dessous. Chaque ligne monte depuis un masque (reel.js).
+ */
+.reel__slogan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(12px, 4.5vh, 56px));
+    color: var(--ink);
+    pointer-events: none;
+}
+
+.reel__title {
+    grid-column: 1 / -1;
+    font-size: min(clamp(52px, 9.4vw, 180px), 15svh);
+    line-height: .9;
+    letter-spacing: -.055em;
+    font-weight: 800;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+}
+
+.reel__title .serif {
+    letter-spacing: -.02em;
+}
+
+.reel__line {
+    display: block;
+    overflow: hidden;
+    padding: .1em .16em .12em 0;
+    margin: -.1em -.16em -.12em 0;
+}
+
+.reel__line > span {
+    display: inline-block;
+}
+
+/* Texte du manifeste, en bas, sur un dégradé sombre qui le garde lisible sur les zones claires. */
+.reel__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: clamp(60px, 14vh, 160px) var(--gutter) clamp(24px, 5vh, 56px);
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    align-items: end;
+    row-gap: 14px;
+    color: var(--snow);
+    text-shadow: 0 1px 18px rgba(11, 11, 11, .3);
+    background: linear-gradient(to top, rgba(11, 11, 11, .72), rgba(11, 11, 11, .46) 55%, rgba(11, 11, 11, 0));
+    pointer-events: none;
+}
+
+.reel__caption .label {
+    grid-column: 1;
+    padding-inline: var(--cell);
+}
+
+.reel__text {
+    grid-column: 2 / span 2;
+    padding-inline: var(--cell);
+    font-size: var(--t-lead);
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    max-width: 42ch;
+}
+
+@media (max-width: 899px) {
+    .manifesto__title,
+    .reel__caption .label,
+    .reel__text {
+        grid-column: 1 / -1;
+    }
+
+    .reel__title {
+        font-size: min(clamp(40px, 15vw, 124px), 15svh);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reel__img {
+        transition: none;
+    }
+}

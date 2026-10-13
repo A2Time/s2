@@ -1,0 +1,36 @@
+{#
+ # Petits composants réutilisés dans les partials.
+ # Import dans un template : {% import 'macros/ui.html.twig' as ui %}
+ #}
+
+{# Lien dont le texte « roule » au survol (deux copies empilées, voir .roll dans app.css). #}
+{% macro roll(label, href = '#', class = '') -%}
+    <a href="{{ href }}" class="roll{{ class ? ' ' ~ class }}"><span class="roll__in" data-text="{{ label }}">{{ label }}</span></a>
+{%- endmacro %}
+
+{# Bouton filaire avec son petit carré (le « ² » de S²). #}
+{% macro btn(label, href = '#', class = '') -%}
+    <a href="{{ href }}" class="btn{{ class ? ' ' ~ class }}"><span class="btn__sq" aria-hidden="true"></span>{{ label }}</a>
+{%- endmacro %}
+
+{# Image : « src » est un chemin AssetMapper (ex. images/projets/halo.jpg) ou une URL absolue. #}
+{% macro img(src, alt = '') -%}
+    <img src="{{ asset(src) }}" alt="{{ alt }}" loading="lazy" decoding="async">
+{%- endmacro %}
+
+{# S² en escalier : quatre copies du monogramme, chacune dans une bande qui en montre une tranche.
+   À placer dans un élément .mark ; le pli et le glissement sont réglés par le CSS (.stairs, dans hero.css). #}
+{% macro stairs() -%}
+    <span class="stairs" aria-hidden="true">
+        {%- for band in 1..4 -%}
+            <span class="stairs__band"><span class="stairs__text"><span class="mark__s">S</span><span class="mark__sq">2</span></span></span>
+        {%- endfor -%}
+    </span>
+{%- endmacro %}
+
+{# Liens en ligne séparés par « / » (réseaux, langues). « key » = champ affiché. #}
+{% macro inline_links(items, key) -%}
+    {%- for item in items -%}
+        <a href="{{ item.href }}">{{ attribute(item, key) }}</a>{% if not loop.last %} / {% endif %}
+    {%- endfor -%}
+{%- endmacro %}

@@ -1,0 +1,226 @@
+/*
+ * Services (inspirés de Santalarch).
+ * .svc__fill est une copie blanche de l'intitulé posée sur la version grise :
+ * services.js anime son clip-path de gauche à droite pour le changement de couleur horizontal.
+ */
+.services {
+    position: relative;
+}
+
+.services__head {
+    padding-top: clamp(90px, 16vh, 200px);
+    row-gap: 20px;
+}
+
+.services__total {
+    grid-column: 4;
+    text-align: right;
+}
+
+.services__title {
+    grid-column: 1 / -1;
+    margin-top: clamp(10px, 3vh, 40px);
+    font-size: var(--t-title);
+    line-height: .84;
+    letter-spacing: -.06em;
+    font-weight: 800;
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    white-space: nowrap;
+}
+
+.services__intro {
+    grid-column: 3 / span 2;
+    max-width: 36ch;
+    font-size: var(--t-lead);
+    line-height: 1.25;
+    letter-spacing: -.015em;
+}
+
+.services__stage {
+    height: 100svh;
+    padding-top: var(--nav-h);
+}
+
+.services__grid {
+    height: 100%;
+    align-items: center;
+}
+
+.svc-list {
+    grid-column: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: .15em;
+}
+
+.svc {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(10px, 1.4vw, 22px);
+    width: max-content;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.svc__num {
+    width: 2.6ch;
+    flex: none;
+    color: var(--soft);
+}
+
+.svc__name {
+    position: relative;
+    display: block;
+    font-size: clamp(30px, 3.4vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -.035em;
+    font-weight: 600;
+}
+
+.svc__base {
+    color: var(--dim);
+    transition: color .4s;
+}
+
+.svc:hover .svc__base {
+    color: var(--soft);
+}
+
+.svc__fill {
+    position: absolute;
+    inset: 0;
+    color: var(--fg);
+    clip-path: inset(0 100% 0 0);
+}
+
+.svc:first-child .svc__fill {
+    clip-path: inset(0 0 0 0);
+}
+
+.svc-media {
+    grid-column: 3;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 100%;
+    margin-inline: var(--cell);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 8%, var(--bg));
+}
+
+.svc-media figure {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(100% 0 0 0);
+}
+
+.svc-media figure:first-child {
+    clip-path: inset(0 0 0 0);
+}
+
+.svc-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.svc-aside {
+    grid-column: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+}
+
+.svc-count {
+    font-size: 12px;
+}
+
+.svc-descs {
+    display: grid;
+}
+
+.svc-desc {
+    grid-area: 1 / 1;
+    max-width: 26ch;
+    font-size: var(--t-lead);
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.svc-desc:first-child {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cartes : mobile et mouvement réduit */
+.svc-cards {
+    display: none;
+}
+
+.svc-card {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding-inline: var(--cell);
+}
+
+.svc-card figure {
+    aspect-ratio: 4 / 5;
+    max-width: 100%;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.svc-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.svc-card h3 {
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    font-weight: 600;
+}
+
+.svc-card p:last-child {
+    max-width: 34ch;
+    color: var(--soft);
+}
+
+.no-motion .services__stage {
+    display: none;
+}
+
+.no-motion .svc-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 48px;
+    padding: 48px var(--gutter) 100px;
+}
+
+@media (max-width: 899px) {
+    .services__total {
+        grid-column: 2;
+    }
+
+    .services__intro {
+        grid-column: 1 / -1;
+    }
+
+    .services__stage {
+        display: none;
+    }
+
+    .svc-cards,
+    .no-motion .svc-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 44px;
+        padding: 40px var(--gutter) 90px;
+    }
+}

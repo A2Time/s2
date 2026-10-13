@@ -1,0 +1,45 @@
+{% import 'macros/ui.html.twig' as ui %}
+{#
+ # Hero : call to action au-dessus du monogramme S² géant.
+ # Au scroll, la section est épinglée et une séquence d'images joue en plein écran ;
+ # à la fin, la vidéo recule dans les lettres du S² puis s'efface : le S² noir revient sur la page blanche.
+ # (assets/js/hero-frames.js ; rythme réglé en haut de assets/js/main.js)
+ #
+ # Les images vont dans public/frames1/ : frame_0001.jpg, frame_0002.jpg… frame_0250.jpg.
+ # Pour une autre séquence, changez « frames » ci-dessous :
+ #   count : nombre d'images ;
+ #   src   : chemin dans public/, les # sont remplacés par le numéro de l'image (#### → 0001, 0002…).
+ #}
+{% set frames = { count: 250, src: 'frames1/frame_####.jpg' } %}
+<section class="hero" id="top" data-bg="light">
+    <div class="hero__pin">
+        <canvas class="hero__frames" data-hero-frames data-count="{{ frames.count }}" data-src="{{ asset(frames.src) }}" aria-hidden="true"></canvas>
+
+        <div style="color: #fff; mix-blend-mode: difference;" class="grid hero__top">
+            <p class="cell label">( studio de création )</p>
+            <p class="cell label">branding · stratégie digitale<br>sites · apps · e-commerce</p>
+            <p class="cell label">{{ ui.inline_links(site.socials|slice(0, 2), 'short') }}</p>
+            <p class="cell label hero__lang">{{ ui.inline_links(site.languages, 'code') }}</p>
+        </div>
+
+        <div class="grid hero__bottom">
+            <div style="color: #fff; mix-blend-mode: difference;" class="cell hero__cta">
+                <p class="hero__pitch">Pas un style, une perspective. La marque et le digital, élevés <span class="serif">au carré.</span></p>
+                <div class="hero__btns">
+                    {{ ui.btn('prendre rendez-vous', site.bookingUrl) }}
+                    {{ ui.roll('écrire au studio @', site.writeUrl, 'link') }}
+                </div>
+            </div>
+
+            <div style="color: #fff; mix-blend-mode: difference;" class="cell label hero__side">
+                <p class="hero__count">image ( <span data-frame-count>001</span> / {{ frames.count }} )</p>
+                <p>faites défiler ↓</p>
+            </div>
+
+            {# S² en escalier (macro ui.stairs) : il se plie, descend la marche puis sort à gauche au scroll (main.js). #}
+            <h1 class="mark hero__mark" data-hero-mark aria-label="{{ site.name }}, studio de création">
+                {{ ui.stairs() }}
+            </h1>
+        </div>
+    </div>
+</section>

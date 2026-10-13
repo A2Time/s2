@@ -1,0 +1,33 @@
+{#
+ # Processus (inspiré de Santalarch) : les étapes se collent en haut de l'écran et s'empilent comme des fiches
+ # (position: sticky + assets/js/process.js). Textes en lorem dans src/Content/HomeContent.php.
+ #}
+<section class="process" id="processus" data-bg="dark">
+    <div class="grid process__head">
+        {# <p class="cell label">( processus )</p> #}
+        <h2 class="cell state process__title" data-fill>Chaque projet suit une séquence d’étapes clairement définies.</h2>
+    </div>
+
+    <ol class="steps">
+        {% for step in steps %}
+            <li class="step" style="--i:{{ loop.index0 }}">
+                <div class="grid step__head">
+                    <span class="cell label step__num">{{ '%02d'|format(loop.index) }}</span>
+                    <h3 class="cell step__title">{{ step.title }}</h3>
+                    <span class="cell label step__time">{{ step.duration }}</span>
+                </div>
+                <div class="grid step__body">
+                    <p class="cell step__text">{{ step.text }}</p>
+                    <div class="cell step__scope">
+                        <p class="label">périmètre</p>
+                        <ul>
+                            {% for item in step.scope %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+</section>
