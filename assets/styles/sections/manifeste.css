@@ -48,7 +48,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    /* filter: grayscale(1) contrast(1.12); */
+    filter: grayscale(1) contrast(1.12);
     transition: filter 1s var(--ease);
     -webkit-user-drag: none;
 }

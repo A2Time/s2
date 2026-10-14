@@ -26,9 +26,9 @@ final class SiteContent
     public function navLinks(): array
     {
         return [
-            ['label' => 'projets', 'href' => '#'],
-            ['label' => 'studio', 'href' => '#'],
-            ['label' => 'contact', 'href' => '#'],
+            ['label' => 'projets', 'href' => '#projets'],
+            ['label' => 'agence', 'href' => '#studio'],
+            ['label' => 'contact', 'href' => '#contact'],
         ];
     }
 
@@ -40,11 +40,11 @@ final class SiteContent
     public function menuLinks(): array
     {
         return [
-            ['label' => 'projets', 'href' => '#'],
-            ['label' => 'studio', 'href' => '#'],
-            ['label' => 'services', 'href' => '#'],
-            ['label' => 'processus', 'href' => '#'],
-            ['label' => 'contact', 'href' => '#'],
+            ['label' => 'projets', 'href' => '#projets'],
+            ['label' => 'agence', 'href' => '#studio'],
+            ['label' => 'services', 'href' => '#services'],
+            ['label' => 'processus', 'href' => '#process'],
+            ['label' => 'contact', 'href' => '#contact'],
         ];
     }
 
@@ -56,9 +56,9 @@ final class SiteContent
     public function socials(): array
     {
         return [
-            ['short' => 'lkdn', 'label' => 'LinkedIn', 'href' => '#'],
+            // ['short' => 'lkdn', 'label' => 'LinkedIn', 'href' => '#'],
             ['short' => 'insta', 'label' => 'Instagram', 'href' => '#'],
-            ['short' => 'bhnc', 'label' => 'Behance', 'href' => '#'],
+            // ['short' => 'bhnc', 'label' => 'Behance', 'href' => '#'],
         ];
     }
 
@@ -76,13 +76,13 @@ final class SiteContent
     /** Lien des boutons « prendre rendez-vous » (Calendly, Cal.com…). */
     public function bookingUrl(): string
     {
-        return '#';
+        return 'https://calendly.com/contact-s2-consulting/30min';
     }
 
     /** Lien des boutons « écrivez-nous @ » (mailto: ou page contact). */
     public function writeUrl(): string
     {
-        return '#';
+        return 'mailto:contact@s2-consulting.fr';
     }
 
     /**
@@ -102,7 +102,7 @@ final class SiteContent
      */
     public function address(): array
     {
-        return ['12 rue de l’Atelier', '75011 Paris'];
+        return ['', '31000 Toulouse'];
     }
 
     public function hours(): string

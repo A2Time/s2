@@ -4,6 +4,7 @@ import { DESKTOP, MOTION } from './motion.js';
 import { initSmoothScroll } from './smooth-scroll.js';
 import { initNav } from './nav.js';
 import { initHeroFrames } from './hero-frames.js';
+import { initHeroPitch } from './hero-pitch.js';
 import { initReel } from './reel.js';
 import { initStudio } from './studio.js';
 import { initServices } from './services.js';
@@ -19,6 +20,8 @@ gsap.registerPlugin(ScrollTrigger);
  * Hero : tout se joue au scroll, pendant que la section est épinglée sur HERO_SCROLL
  * (1000 % = 10 hauteurs d'écran). Chaque phase est [début, fin], en part de ce scroll (0 → 1) :
  * - HERO_PLAY  : les images défilent en plein écran ;
+ * - HERO_TYPE  : l'accroche s'écrit lettre par lettre, en grand au centre ;
+ * - HERO_PITCH : quand le S² apparaît, elle rétrécit et rejoint sa place ;
  * - HERO_ZOOM  : recul (zoom out) : la vidéo rentre dans les lettres du S² ;
  * - HERO_FADE  : la vidéo s'efface, il reste le S² noir sur la page blanche ;
  * - HERO_FOLD  : le S² se plie en escalier ;
@@ -30,6 +33,8 @@ gsap.registerPlugin(ScrollTrigger);
  */
 const HERO_SCROLL = '+=1000%';
 const HERO_PLAY = [0, 0.6];
+const HERO_TYPE = [0, 0.2];
+const HERO_PITCH = [0.5, 0.66];
 const HERO_ZOOM = [0.46, 0.68];
 const HERO_FADE = [0.68, 0.72];
 const HERO_FOLD = [0.73, 0.81];
@@ -65,7 +70,8 @@ function start() {
         },
     });
     if (MOTION && hero) {
-        const state = { play: 0, zoom: 0, fade: 0 };
+        const pitch = initHeroPitch();
+        const state = { play: 0, zoom: 0, fade: 0, type: 0, move: 0 };
         const span = ([from, to]) => to - from;
         heroTimeline = gsap.timeline({
             scrollTrigger: {
@@ -76,15 +82,23 @@ function start() {
                 scrub: 1,
                 refreshPriority: 10,
             },
-            onUpdate: () => hero.update(state),
+            onUpdate: () => {
+                hero.update(state);
+                pitch?.update(state);
+            },
         })
             .to(state, { play: 1, duration: span(HERO_PLAY), ease: 'none' }, HERO_PLAY[0])
+            .to(state, { type: 1, duration: span(HERO_TYPE), ease: 'none' }, HERO_TYPE[0])
+            .to(state, { move: 1, duration: span(HERO_PITCH), ease: 'power2.inOut' }, HERO_PITCH[0])
             .to(state, { zoom: 1, duration: span(HERO_ZOOM), ease: 'power2.inOut' }, HERO_ZOOM[0])
             .to(state, { fade: 1, duration: span(HERO_FADE), ease: 'none' }, HERO_FADE[0])
             .to(mark, { '--fold': 1, duration: span(HERO_FOLD), ease: 'power2.inOut' }, HERO_FOLD[0])
             .to(mark, { '--slide': STAIRS_SLIDE, duration: span(HERO_SLIDE), ease: 'power1.inOut' }, HERO_SLIDE[0])
             .to(mark, { '--slide': STAIRS_EXIT, '--away': 1, '--rise': -0.7, duration: span(HERO_EXIT), ease: 'power2.in' }, HERO_EXIT[0])
             .set({}, {}, 1);
+        // accroche : vide et centrée dès le chargement ; recalée à chaque recalcul de la page
+        pitch?.update(state);
+        ScrollTrigger.addEventListener('refreshInit', () => pitch?.measure());
     } else if (MOTION) {
         showStairs();
     }

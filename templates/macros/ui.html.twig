@@ -10,7 +10,7 @@
 
 {# Bouton filaire avec son petit carré (le « ² » de S²). #}
 {% macro btn(label, href = '#', class = '') -%}
-    <a href="{{ href }}" class="btn{{ class ? ' ' ~ class }}"><span class="btn__sq" aria-hidden="true"></span>{{ label }}</a>
+    <a target="_blank" href="{{ href }}" class="btn{{ class ? ' ' ~ class }}"><span class="btn__sq" aria-hidden="true"></span>{{ label }}</a>
 {%- endmacro %}
 
 {# Image : « src » est un chemin AssetMapper (ex. images/projets/halo.jpg) ou une URL absolue. #}
