@@ -133,7 +133,7 @@ final class HomeContent
             ['name' => 'Hedi Training', 'description' => 'Plateforme SaaS de coaching fitness en ligne', 'category' => 'SaaS', 'year' => 2026, 'href' => 'https://heditraining.com', 'image' => 'images/projets/hedi.png'],
             ['name' => 'WhyNot Studio', 'description' => 'Site E-Commerce de prêt à porter H/F', 'category' => 'E-commerce', 'year' => 2026, 'href' => 'https://whynotstudio.fr', 'image' => 'images/projets/whynot.png'],
             ['name' => 'Prestige Piscine', 'description' => 'Site vitrine + espace administrateur pour la génération de devis', 'category' => 'Site', 'year' => 2025, 'href' => 'https://prestigepiscine.com', 'image' => 'images/projets/prestige.png'],
-            ['name' => 'DropTheKeys', 'description' => 'Site pour une entreprise de conciergerie toulousaine', 'category' => 'Site', 'year' => 2024, 'href' => 'https://dropthekeys-conciergerie.com', 'image' => 'images/projets/drop2.png'],
+            ['name' => 'DropTheKeys', 'description' => 'Site pour une entreprise de conciergerie toulousaine', 'category' => 'Site', 'year' => 2024, 'href' => 'https://www.dropthekeys-conciergerie.com/', 'image' => 'images/projets/drop2.png'],
             // ['name' => 'Écho', 'description' => 'Une expérience digitale qui se touche presque.', 'category' => 'digital', 'year' => 2024, 'href' => '#', 'image' => 'images/projets/echo.jpg'],
         ];
     }

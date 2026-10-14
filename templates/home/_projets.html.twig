@@ -16,7 +16,7 @@
         <ul class="works__list">
             {% for project in projects %}
                 <li class="work">
-                    <a href="{{ project.href }}" class="grid work__link">
+                    <a target="_blank" href="{{ project.href }}" class="grid work__link">
                         <span class="cell label work__num">{{ '%02d'|format(loop.index) }}</span>
                         <span class="cell work__name">{{ project.name }}</span>
                         <span class="cell work__desc">{{ project.description }}</span>
