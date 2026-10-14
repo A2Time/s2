@@ -10,15 +10,16 @@
  #   count : nombre d'images ;
  #   src   : chemin dans public/, les # sont remplacés par le numéro de l'image (#### → 0001, 0002…).
  #}
-{% set frames = { count: 129, src: 'frames1/frame_####.jpg' } %}
+{% set frames = { count: 250, src: 'frames1/frame_####.jpg' } %}
 <section class="hero" id="top" data-bg="light">
     <div class="hero__pin">
         <canvas class="hero__frames" data-hero-frames data-count="{{ frames.count }}" data-src="{{ asset(frames.src) }}" aria-hidden="true"></canvas>
 
         <div class="grid hero__top">
-            <p class="cell label">sites · apps · e-commerce<br>design system · logiciel back-office</p>
+            <p class="cell label">( studio de création )</p>
+            <p class="cell label">branding · stratégie digitale<br>sites · apps · e-commerce</p>
             <p class="cell label">{{ ui.inline_links(site.socials|slice(0, 2), 'short') }}</p>
-            {# <p class="cell label hero__lang">{{ ui.inline_links(site.languages, 'code') }}</p> #}
+            <p class="cell label hero__lang">{{ ui.inline_links(site.languages, 'code') }}</p>
         </div>
 
         <div class="grid hero__bottom">
