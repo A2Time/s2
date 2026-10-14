@@ -43,7 +43,7 @@ final class SiteContent
             ['label' => 'projets', 'href' => '#projets'],
             ['label' => 'agence', 'href' => '#studio'],
             ['label' => 'services', 'href' => '#services'],
-            ['label' => 'processus', 'href' => '#process'],
+            ['label' => 'processus', 'href' => '#processus'],
             ['label' => 'contact', 'href' => '#contact'],
         ];
     }

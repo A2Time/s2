@@ -1,10 +1,11 @@
 {#
  # Processus (inspiré de Santalarch) : les étapes se collent en haut de l'écran et s'empilent comme des fiches
- # (position: sticky + assets/js/process.js). Textes en lorem dans src/Content/HomeContent.php.
+ # (position: sticky + assets/js/process.js). Sur mobile, c'est un accordéon : le bouton + déroule l'étape.
+ # Textes en lorem dans src/Content/HomeContent.php.
  #}
 <section class="process" id="processus" data-bg="dark">
     <div class="grid process__head">
-        {# <p class="cell label">( processus )</p> #}
+        <p class="cell label">( processus )</p>
         <h2 class="cell state process__title" data-fill>Chaque projet suit une séquence d’étapes clairement définies.</h2>
     </div>
 
@@ -15,16 +16,22 @@
                     <span class="cell label step__num">{{ '%02d'|format(loop.index) }}</span>
                     <h3 class="cell step__title">{{ step.title }}</h3>
                     <span class="cell label step__time">{{ step.duration }}</span>
+                    {# bouton de l'accordéon, visible sur mobile seulement #}
+                    <button type="button" class="step__plus" aria-expanded="false" aria-controls="etape-{{ loop.index }}" aria-label="Afficher l’étape {{ step.title }}"></button>
                 </div>
-                <div class="grid step__body">
-                    <p class="cell step__text">{{ step.text }}</p>
-                    <div class="cell step__scope">
-                        <p class="label">périmètre</p>
-                        <ul>
-                            {% for item in step.scope %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
+                <div class="step__panel" id="etape-{{ loop.index }}">
+                    <div class="step__clip">
+                        <div class="grid step__body">
+                            <p class="cell step__text">{{ step.text }}</p>
+                            <div class="cell step__scope">
+                                <p class="label">périmètre</p>
+                                <ul>
+                                    {% for item in step.scope %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>

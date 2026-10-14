@@ -8,7 +8,7 @@ import { initHeroPitch } from './hero-pitch.js';
 import { initReel } from './reel.js';
 import { initStudio } from './studio.js';
 import { initServices } from './services.js';
-import { initProcess } from './process.js';
+import { initProcess, initProcessAccordion } from './process.js';
 import { initWorks } from './works.js';
 import { initOutro } from './outro.js';
 import { initTextFill } from './text-fill.js';
@@ -140,6 +140,7 @@ function start() {
         }
     }
 
+    initProcessAccordion();
     initTheme();
     ScrollTrigger.refresh();
 }

@@ -78,7 +78,69 @@
     font-size: 13px;
 }
 
+/* Accordéon (mobile) : bouton + et panneau qui se déroule. Sur bureau, le bouton est caché et tout est ouvert. */
+.step__plus {
+    display: none;
+}
+
 @media (max-width: 899px) {
+    .step__head {
+        position: relative;
+        padding-right: calc(var(--gutter) + var(--cell) + 52px);
+        cursor: pointer;
+    }
+
+    .step__plus {
+        display: block;
+        position: absolute;
+        right: calc(var(--gutter) + var(--cell));
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        border: 1px solid currentColor;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    /* le + : deux traits ; la barre verticale s'efface quand l'étape est ouverte (−) */
+    .step__plus::before,
+    .step__plus::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 14px;
+        height: 1.5px;
+        margin: -.75px 0 0 -7px;
+        background: currentColor;
+        transition: transform .5s var(--ease);
+    }
+
+    .step__plus::after {
+        transform: rotate(90deg);
+    }
+
+    .step.is-open .step__plus::after {
+        transform: rotate(90deg) scaleX(0);
+    }
+
+    .step__panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows .6s var(--ease);
+    }
+
+    .step.is-open .step__panel {
+        grid-template-rows: 1fr;
+    }
+
+    .step__clip {
+        min-height: 0;
+        overflow: hidden;
+    }
+
     .process__title {
         grid-column: 1 / -1;
     }
@@ -116,5 +178,12 @@
 
     .step__body {
         row-gap: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .step__panel,
+    .step__plus::after {
+        transition: none;
     }
 }
