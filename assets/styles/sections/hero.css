@@ -103,28 +103,21 @@
 
 /*
  * Accroche (assets/js/hero-pitch.js) : pendant la séquence, elle s'écrit en grand au centre,
- * puis rejoint sa place quand le S² apparaît. --pitch-p (sur .hero__pin) : 0 au centre, 1 à sa place.
+ * puis rejoint sa place quand le S² apparaît. --pitch-p : 0 au centre, 1 à sa place.
  * En blanc avec « difference » : lisible sur la vidéo, noire sur la page blanche.
  */
 .hero__pitch {
     position: relative;
     z-index: 2;
-    color: #fff;
-    mix-blend-mode: difference;
+    color: black;
+    font-weight: 700;
+    filter: blur(0.3px);
+    /* mix-blend-mode: difference; */
+    --pitch-p: 1;
     transform:
         translate(calc((1 - var(--pitch-p)) * var(--pitch-x, 0px)), calc((1 - var(--pitch-p)) * var(--pitch-y, 0px)))
         scale(calc(1 + (1 - var(--pitch-p)) * (var(--pitch-s, 1) - 1)));
     will-change: transform;
-}
-
-/* Sur mobile, boutons et étiquettes descendent en bas de l'écran pendant l'écriture (--hero-drop, hero-pitch.js). */
-.hero__pin {
-    --pitch-p: 1;
-}
-
-.hero__btns,
-.hero__side {
-    transform: translateY(calc((1 - var(--pitch-p)) * var(--hero-drop, 0px)));
 }
 
 .pitch__char.is-hidden {
@@ -187,9 +180,9 @@
 }
 
 /* Faces verticales : elles changent de couleur en se pliant, pour lire le relief. */
-.stairs__band:nth-child(odd) {
+/* .stairs__band:nth-child(odd) {
     color: color-mix(in srgb, var(--stairs-face, #9a9a9a) calc(var(--fold, 0) * 100%), var(--stairs-tread, currentColor));
-}
+} */
 
 .stairs__text {
     position: absolute;
