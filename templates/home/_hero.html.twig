@@ -10,7 +10,7 @@
  #   count : nombre d'images ;
  #   src   : chemin dans public/, les # sont remplacés par le numéro de l'image (#### → 0001, 0002…).
  #}
-{% set frames = { count: 129, src: 'frames1/frame_####.jpg' } %}
+{% set frames = { count: 50, src: 'frames1/frame_####.jpg' } %}
 <section class="hero" id="top" data-bg="light">
     <div class="hero__pin">
         <canvas class="hero__frames" data-hero-frames data-count="{{ frames.count }}" data-src="{{ asset(frames.src) }}" aria-hidden="true"></canvas>

@@ -12,7 +12,7 @@
 
 {# Lien dont le texte « roule » au survol (deux copies empilées, voir .roll dans app.css). #}
 {% macro roll(label, href = '#', class = '') -%}
-    <a href="{{ _self.url(href) }}" class="roll{{ class ? ' ' ~ class }}"><span class="roll__in" data-text="{{ label }}">{{ label }}</span></a>
+    <a  href="{{ _self.url(href) }}" class="roll{{ class ? ' ' ~ class }}"><span class="roll__in" data-text="{{ label }}">{{ label }}</span></a>
 {%- endmacro %}
 
 {# Bouton filaire avec son petit carré (le « ² » de S²). #}
@@ -38,6 +38,6 @@
 {# Liens en ligne séparés par « / » (réseaux, langues). « key » = champ affiché. #}
 {% macro inline_links(items, key) -%}
     {%- for item in items -%}
-        <a href="{{ _self.url(item.href) }}">{{ attribute(item, key) }}</a>{% if not loop.last %} / {% endif %}
+        <a target="_blank" href="{{ _self.url(item.href) }}">{{ attribute(item, key) }}</a>{% if not loop.last %} / {% endif %}
     {%- endfor -%}
 {%- endmacro %}

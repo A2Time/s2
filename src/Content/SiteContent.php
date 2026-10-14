@@ -57,7 +57,7 @@ final class SiteContent
     {
         return [
             // ['short' => 'lkdn', 'label' => 'LinkedIn', 'href' => '#'],
-            ['short' => 'insta', 'label' => 'Instagram', 'href' => '#'],
+            ['short' => 'insta', 'label' => 'Instagram', 'href' => 'https://instagram.com/s2_consulting31?mdxt=MXhsaGxjdnR6N2R3dQ%3D%3D&utm_source=qr'],
             // ['short' => 'bhnc', 'label' => 'Behance', 'href' => '#'],
         ];
     }

@@ -7,7 +7,7 @@
     <div class="grid works__head">
         {# <p class="cell label">( projets )</p> #}
         <h2 class="cell state works__title" data-fill>Les bonnes marques communiquent. Les grandes surprennent.</h2>
-        <p class="cell label works__count">( {{ '%02d'|format(projects_total) }} )</p>
+        {# <p class="cell label works__count">( {{ '%02d'|format(projects_total) }} )</p> #}
     </div>
 
     <p class="works__letters" aria-hidden="true">{% for letter in 'projets'|split('') %}<span>{{ letter }}</span>{% endfor %}</p>
