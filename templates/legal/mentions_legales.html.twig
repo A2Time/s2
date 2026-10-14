@@ -1,0 +1,80 @@
+{% extends 'legal/_page.html.twig' %}
+
+{% block title %}Mentions légales · {{ site.name }} Studio{% endblock %}
+{% block description %}Mentions légales du site {{ site.name }} : éditeur, hébergeur, propriété intellectuelle.{% endblock %}
+
+{% block legal_label %}mentions légales{% endblock %}
+{% block legal_title %}Mentions légales{% endblock %}
+
+{% block legal_content %}
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">01 · éditeur du site</h2>
+        <div class="cell legal__text">
+            <p>Le présent site est édité par <strong>{{ legal.owner }}</strong>, {{ legal.status }}, exerçant sous le nom commercial <strong>{{ legal.trade_name }}</strong> ({{ site.name }}).</p>
+            <dl class="legal__list">
+                <dt>Adresse</dt><dd>{{ legal.address }}</dd>
+                <dt>SIREN</dt><dd>{{ legal.siren }}</dd>
+                <dt>SIRET</dt><dd>{{ legal.siret }}</dd>
+                <dt>Immatriculation</dt><dd>{{ legal.register }}</dd>
+                <dt>TVA</dt><dd>{{ legal.vat }}</dd>
+                <dt>Contact</dt><dd><a href="mailto:{{ legal.email }}">{{ legal.email }}</a></dd>
+            </dl>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">02 · directeur de la publication</h2>
+        <div class="cell legal__text">
+            <p>{{ legal.owner }}, joignable à l’adresse <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">03 · hébergement</h2>
+        <div class="cell legal__text">
+            <p>Le site est hébergé par <strong>{{ legal.host }}</strong>, {{ legal.host_address }}, <a href="{{ legal.host_site }}" rel="noopener">{{ legal.host_site|replace({'https://': ''}) }}</a>.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">04 · propriété intellectuelle</h2>
+        <div class="cell legal__text">
+            <p>L’ensemble des éléments de ce site (textes, logo {{ site.name }}, identité visuelle, mise en page, animations, images, vidéos et code) est protégé par le droit de la propriété intellectuelle. Sauf mention contraire, ces éléments sont la propriété de {{ legal.owner }} ({{ legal.trade_name }}) ou font l’objet d’une autorisation d’utilisation.</p>
+            <p>Toute reproduction, représentation, adaptation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+            <p>Les polices Archivo, Geist Mono et Instrument Serif sont utilisées sous licence SIL Open Font License 1.1.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">05 · crédits</h2>
+        <div class="cell legal__text">
+            {# À compléter : auteurs et sources des images, de la peinture du manifeste et des vidéos. #}
+            <ul class="legal__credits">
+                <li>Conception et réalisation du site : {{ site.name }}</li>
+                <li>Images et vidéos : <em>à compléter</em></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">06 · responsabilité</h2>
+        <div class="cell legal__text">
+            <p>Les informations de ce site sont fournies à titre indicatif et peuvent être modifiées à tout moment. {{ legal.trade_name }} s’efforce d’en assurer l’exactitude, sans pouvoir garantir qu’elles soient complètes ou à jour, ni que le site soit accessible sans interruption.</p>
+            <p>Le site peut contenir des liens vers des sites tiers, notamment l’outil de prise de rendez-vous Calendly. {{ legal.trade_name }} n’a pas la maîtrise de leur contenu et ne saurait en être tenu responsable.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">07 · données personnelles</h2>
+        <div class="cell legal__text">
+            <p>Le traitement de vos données personnelles est décrit dans la <a href="{{ path('app_privacy') }}">politique de confidentialité</a>.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">08 · droit applicable</h2>
+        <div class="cell legal__text">
+            <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de solution amiable, les tribunaux français seront seuls compétents.</p>
+        </div>
+    </section>
+{% endblock %}

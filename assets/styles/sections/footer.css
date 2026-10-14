@@ -80,6 +80,8 @@
 }
 
 .footer__bottom {
+    position: relative;
+    z-index: 100;
     padding-block: 16px calc(16px + env(safe-area-inset-bottom, 0px));
     row-gap: 8px;
     border-top: 1px solid var(--line);

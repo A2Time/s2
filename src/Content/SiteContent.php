@@ -114,4 +114,23 @@ final class SiteContent
     {
         return 2026;
     }
+
+    public function legal(): array
+    {
+        return [
+            'owner' => 'Addai Kwateng',
+            'status' => 'entrepreneur individuel (micro-entreprise)',
+            'trade_name' => 'S2 consulting',
+            'address' => '60 route de Launaguet, 31200 Toulouse',
+            'siren' => '101 825 107',
+            'siret' => '101 825 107 00010',
+            'register' => 'Registre national des entreprises (RNE)',
+            'vat' => 'TVA non applicable, article 293 B du Code général des impôts',
+            'email' => 'contact@s2-consulting.fr',
+            'host' => 'Hostinger International Ltd',
+            'host_address' => '61 Lordou Vironos Street, 6023 Larnaca, Chypre',
+            'host_site' => 'https://www.hostinger.fr',
+            'updated' => '14 octobre 2026',
+        ];
+    }
 }

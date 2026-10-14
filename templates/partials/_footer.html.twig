@@ -37,8 +37,8 @@
 
     <div class="grid footer__bottom label">
         <p class="cell">© {{ 'now'|date('Y') }} {{ site.name }} studio</p>
-        <a href="#" class="cell">mentions légales</a>
-        <a href="#" class="cell">confidentialité</a>
+        <a href="{{ path('app_legal_notice') }}" class="cell">mentions légales</a>
+        <a href="{{ path('app_privacy') }}" class="cell">confidentialité</a>
         <p class="cell footer__credit">site par {{ site.name }}</p>
     </div>
 </footer>

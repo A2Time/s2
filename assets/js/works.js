@@ -6,6 +6,10 @@ import { FINE } from './motion.js';
  * à la souris, un aperçu suit le curseur et change d'image par un volet à chaque ligne survolée.
  */
 export function initWorks() {
+    if (!document.querySelector('.works__letters')) {
+        return; // page sans section projets (pages légales)
+    }
+
     gsap.fromTo('.works__letters span', { yPercent: 100 }, {
         yPercent: 0,
         ease: 'none',

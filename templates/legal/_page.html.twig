@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{#
+ # Gabarit des pages légales : un en-tête (étiquette, titre, date de mise à jour) puis des sections
+ # « titre à gauche, texte à droite » sur la grille du site. Styles : assets/styles/sections/legal.css.
+ # Les pages définissent les blocs legal_label, legal_title et legal_content.
+ #}
+{% set legal = site.legal %}
+
+{% block body %}
+    <section class="legal" data-bg="light">
+        <header class="grid legal__head">
+            <p class="cell label">( {% block legal_label %}{% endblock %} )</p>
+            <h1 class="cell state legal__title">{% block legal_title %}{% endblock %}</h1>
+            <p class="cell label legal__date">dernière mise à jour : {{ legal.updated }}</p>
+        </header>
+
+        <div class="legal__body">
+            {% block legal_content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}

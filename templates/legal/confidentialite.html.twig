@@ -1,0 +1,106 @@
+{% extends 'legal/_page.html.twig' %}
+
+{% block title %}Confidentialité · {{ site.name }} Studio{% endblock %}
+{% block description %}Politique de confidentialité du site {{ site.name }} : données collectées, finalités, durées de conservation et vos droits.{% endblock %}
+
+{% block legal_label %}confidentialité{% endblock %}
+{% block legal_title %}Politique de confidentialité{% endblock %}
+
+{% block legal_content %}
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">01 · en bref</h2>
+        <div class="cell legal__text">
+            <p class="legal__lead">Ce site ne contient ni formulaire, ni outil de mesure d’audience, ni publicité, et ne dépose aucun cookie de suivi. Nous ne traitons vos données que lorsque vous nous écrivez ou prenez rendez-vous, et seulement pour vous répondre.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">02 · responsable du traitement</h2>
+        <div class="cell legal__text">
+            <p>{{ legal.owner }}, {{ legal.status }}, exerçant sous le nom commercial {{ legal.trade_name }}, {{ legal.address }} (SIRET {{ legal.siret }}).</p>
+            <p>Pour toute question sur vos données : <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">03 · données traitées</h2>
+        <div class="cell legal__text">
+            <h3 class="legal__sub">Quand vous nous écrivez</h3>
+            <p>Votre nom, votre adresse e-mail, les autres coordonnées que vous choisissez de nous donner et le contenu de vos messages.</p>
+            <h3 class="legal__sub">Quand vous prenez rendez-vous</h3>
+            <p>Le bouton « prendre rendez-vous » ouvre Calendly, un service tiers. Les informations que vous y saisissez (nom, e-mail, créneau choisi, réponses éventuelles) nous sont transmises pour organiser le rendez-vous. Calendly les traite aussi selon sa propre <a href="https://calendly.com/privacy" rel="noopener">politique de confidentialité</a>, et peut déposer des cookies sur son site.</p>
+            <h3 class="legal__sub">Quand vous consultez le site</h3>
+            <p>Comme tout serveur web, celui de notre hébergeur enregistre des données techniques de connexion (adresse IP, date et heure, pages demandées, navigateur). Elles servent uniquement à assurer le fonctionnement et la sécurité du site et ne sont pas utilisées pour vous identifier ou suivre votre navigation.</p>
+            <p>Les polices de caractères sont hébergées sur notre propre serveur : aucune donnée n’est transmise à Google ou à un autre fournisseur lors de votre visite.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">04 · finalités et bases légales</h2>
+        <div class="cell legal__text">
+            <dl class="legal__list legal__list--wide">
+                <dt>Répondre à vos demandes et échanger sur un projet</dt>
+                <dd>Mesures précontractuelles prises à votre demande, puis exécution du contrat si nous travaillons ensemble.</dd>
+                <dt>Organiser les rendez-vous</dt>
+                <dd>Mesures précontractuelles prises à votre demande.</dd>
+                <dt>Assurer la sécurité et le bon fonctionnement du site</dt>
+                <dd>Intérêt légitime de l’éditeur.</dd>
+                <dt>Respecter nos obligations comptables et fiscales (clients)</dt>
+                <dd>Obligation légale.</dd>
+            </dl>
+            <p>Vos données ne sont jamais vendues ni utilisées pour de la prospection commerciale sans votre accord.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">05 · durées de conservation</h2>
+        <div class="cell legal__text">
+            <dl class="legal__list legal__list--wide">
+                <dt>Échanges avec des prospects</dt>
+                <dd>3 ans à compter du dernier contact de votre part.</dd>
+                <dt>Données des clients</dt>
+                <dd>Pendant la relation contractuelle, puis 5 ans (prescription) ; 10 ans pour les pièces comptables.</dd>
+                <dt>Données de rendez-vous</dt>
+                <dd>Comme les échanges avec les prospects ; elles restent aussi chez Calendly selon ses propres règles.</dd>
+                <dt>Données techniques de connexion</dt>
+                <dd>Conservées par l’hébergeur pour une durée limitée, au plus un an.</dd>
+            </dl>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">06 · destinataires</h2>
+        <div class="cell legal__text">
+            <p>Vos données sont destinées à {{ legal.owner }} ({{ legal.trade_name }}) uniquement. Elles sont confiées, pour les seuls besoins techniques, aux prestataires suivants :</p>
+            <ul class="legal__credits">
+                <li><strong>{{ legal.host }}</strong> ({{ legal.host_address }}) : hébergement du site et messagerie électronique ;</li>
+                <li><strong>Calendly LLC</strong> (États-Unis) : prise de rendez-vous.</li>
+            </ul>
+            <p>Calendly étant établi aux États-Unis, les données de rendez-vous peuvent y être transférées. Ce transfert est encadré par le cadre de protection des données UE–États-Unis (Data Privacy Framework) et par les clauses contractuelles types de la Commission européenne.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">07 · cookies</h2>
+        <div class="cell legal__text">
+            <p>Ce site ne dépose aucun cookie de mesure d’audience, de publicité ou de réseau social, et n’enregistre rien dans votre navigateur. Aucun consentement n’est donc demandé à l’arrivée sur le site.</p>
+            <p>Si cela change (outil de statistiques, vidéo intégrée…), cette page sera mise à jour et votre accord vous sera demandé avant tout dépôt de cookie non indispensable.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">08 · vos droits</h2>
+        <div class="cell legal__text">
+            <p>Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation et de portabilité de vos données, ainsi que d’un droit d’opposition à leur traitement. Vous pouvez aussi définir des directives sur le sort de vos données après votre décès.</p>
+            <p>Pour exercer ces droits, écrivez à <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>. Nous vous répondrons dans un délai d’un mois. Une pièce d’identité pourra vous être demandée en cas de doute sur votre identité.</p>
+            <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr/fr/plaintes" rel="noopener">cnil.fr</a>), 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07.</p>
+        </div>
+    </section>
+
+    <section class="grid legal__section">
+        <h2 class="cell label legal__h">09 · sécurité et modifications</h2>
+        <div class="cell legal__text">
+            <p>Le site est servi en connexion chiffrée (HTTPS) et l’accès aux données est limité à l’éditeur. Cette politique peut évoluer ; la date de dernière mise à jour figure en haut de la page.</p>
+        </div>
+    </section>
+{% endblock %}
