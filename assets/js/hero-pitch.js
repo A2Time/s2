@@ -1,6 +1,6 @@
 /**
  * Accroche du hero pendant la séquence d'images (le scroll est piloté par main.js) :
- * - elle s'écrit lettre par lettre, en grand au centre de l'écran (effet machine à écrire) ;
+ * - elle s'écrit lettre par lettre, en grand au centre de l'écran, lignes centrées (effet machine à écrire) ;
  * - quand le S² apparaît, elle rétrécit et rejoint sa place, au-dessus des boutons.
  * Sur mobile, les boutons et les étiquettes du bas descendent en bas de l'écran pendant l'écriture,
  * pour laisser la place au texte, et remontent avec lui.
@@ -17,23 +17,34 @@ export function initHeroPitch() {
 
     pitch.setAttribute('aria-label', pitch.textContent.replace(/\s+/g, ' ').trim());
 
-    // Une <span> par lettre ; les espaces restent du texte pour que les lignes se coupent normalement.
+    // Une <span> par mot (pour centrer les lignes) et une par lettre (pour l'écriture) ;
+    // les espaces restent du texte, les lignes se coupent donc comme avant.
     const chars = [];
+    const words = [];
     const walk = (node) => {
         [...node.childNodes].forEach((child) => {
             if (child.nodeType === Node.TEXT_NODE) {
                 const frag = document.createDocumentFragment();
-                [...child.textContent].forEach((c) => {
-                    if (/\s/.test(c)) {
-                        frag.append(c);
-                    } else {
+                child.textContent.split(/(\s+)/).forEach((part) => {
+                    if (!part) {
+                        return;
+                    }
+                    if (/^\s+$/.test(part)) {
+                        frag.append(part);
+                        return;
+                    }
+                    const word = document.createElement('span');
+                    word.className = 'pitch__word';
+                    [...part].forEach((c) => {
                         const span = document.createElement('span');
                         span.className = 'pitch__char';
                         span.setAttribute('aria-hidden', 'true');
                         span.textContent = c;
-                        frag.append(span);
+                        word.append(span);
                         chars.push(span);
-                    }
+                    });
+                    frag.append(word);
+                    words.push(word);
                 });
                 child.replaceWith(frag);
             } else if (child.nodeType === Node.ELEMENT_NODE) {
@@ -59,11 +70,38 @@ export function initHeroPitch() {
     const measure = () => {
         const previous = pinEl.style.getPropertyValue('--pitch-p');
         pinEl.style.setProperty('--pitch-p', '1');
-        const r = pitch.getBoundingClientRect();
+        const box = pitch.getBoundingClientRect();
         const pin = pinEl.getBoundingClientRect();
         const low = side ? side.getBoundingClientRect().bottom - pin.top : 0;
+
+        // Lignes du texte, pour les centrer quand l'accroche est au milieu de l'écran
+        // (le curseur est retiré le temps de mesurer : il ne doit pas décaler les mots).
+        const caretParent = caret.parentNode;
+        const caretNext = caret.nextSibling;
+        caret.remove();
+        const lines = [];
+        words.forEach((w) => {
+            const wr = w.getBoundingClientRect();
+            const mid = wr.top + wr.height / 2;
+            let line = lines.find((l) => Math.abs(l.mid - mid) < wr.height / 2);
+            if (!line) {
+                line = { mid, left: Infinity, right: -Infinity, words: [] };
+                lines.push(line);
+            }
+            line.left = Math.min(line.left, wr.left);
+            line.right = Math.max(line.right, wr.right);
+            line.words.push(w);
+        });
+        if (caretParent) {
+            caretParent.insertBefore(caret, caretNext);
+        }
+        const widest = Math.max(...lines.map((l) => l.right - l.left));
+        lines.forEach((l) => l.words.forEach((w) => w.style.setProperty('--line-shift', `${(widest - (l.right - l.left)) / 2}px`)));
+        const r = { left: box.left, top: box.top, width: widest, height: box.height };
+
         pinEl.style.setProperty('--pitch-p', previous || '1');
         const scale = Math.max(1, Math.min(2.6, (pin.width * 0.8) / r.width));
+        pitch.style.setProperty('--pitch-origin', `${r.width / 2}px 50%`);
         pitch.style.setProperty('--pitch-x', `${pin.width / 2 - (r.left - pin.left + r.width / 2)}px`);
         pitch.style.setProperty('--pitch-y', `${window.innerHeight / 2 - (r.top - pin.top + r.height / 2)}px`);
         pitch.style.setProperty('--pitch-s', scale);

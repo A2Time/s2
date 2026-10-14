@@ -2,7 +2,6 @@
 {# Menu plein écran, ouvert par le bouton « menu » de la navbar (assets/js/nav.js). #}
 <div class="menu" id="menu" aria-hidden="true">
     <div class="grid menu__grid">
-        <p class="cell label menu__label">( menu )</p>
         <nav class="cell menu__links" aria-label="Menu">
             {% for link in site.menuLinks %}
                 <a href="{{ link.href }}" class="menu__link" style="--i:{{ loop.index0 }}"><span>{{ link.label }}</span></a>

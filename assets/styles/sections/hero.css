@@ -109,14 +109,13 @@
 .hero__pitch {
     position: relative;
     z-index: 2;
-    color: black;
+     color: black;
     font-weight: 700;
     filter: blur(0.3px);
-    /* mix-blend-mode: difference; */
-    --pitch-p: 1;
     transform:
         translate(calc((1 - var(--pitch-p)) * var(--pitch-x, 0px)), calc((1 - var(--pitch-p)) * var(--pitch-y, 0px)))
         scale(calc(1 + (1 - var(--pitch-p)) * (var(--pitch-s, 1) - 1)));
+    transform-origin: var(--pitch-origin, 50% 50%);
     will-change: transform;
 }
 
@@ -128,6 +127,13 @@
 .hero__btns,
 .hero__side {
     transform: translateY(calc((1 - var(--pitch-p)) * var(--hero-drop, 0px)));
+}
+
+/* Chaque mot se décale vers le centre de sa ligne quand l'accroche est au milieu (--line-shift, hero-pitch.js). */
+.pitch__word {
+    white-space: nowrap;
+    display: inline-block;
+    transform: translateX(calc((1 - var(--pitch-p)) * var(--line-shift, 0px)));
 }
 
 .pitch__char.is-hidden {
