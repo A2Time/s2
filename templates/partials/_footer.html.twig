@@ -10,12 +10,12 @@
     </div>
 
     <div class="grid footer__info">
-        {# <div class="cell footer__col">
+        <div class="cell footer__col">
             <p class="label">écrire</p>
             {% for email in site.emails %}
                 <a href="{{ email.href }}" title="{{ email.label }}">{{ email.address }}</a>
             {% endfor %}
-        </div> #}
+        </div>
         <div class="cell footer__col">
             <p class="label">studio</p>
             <p>{% for line in site.address %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
