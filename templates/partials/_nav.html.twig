@@ -1,9 +1,9 @@
 {% import 'macros/ui.html.twig' as ui %}
-{# Navbar inspirée de noth.in : logo, accroche, trois liens, langue, bouton menu. Tous les liens en « # ». #}
+{# Navbar inspirée de noth.in : logo, accroche, trois liens, langue, bouton menu. Les ancres (« #projets »...) passent par ui.url() pour marcher depuis toutes les pages. #}
 <header class="nav">
     <div class="grid">
-        <div class="cell"><a href="#" class="nav__logo" aria-label="{{ site.name }}, accueil">S<sup>2</sup></a></div>
-        <p class="cell label nav__tag">agence web<br> &amp; digital</p>
+        <div class="cell"><a href="{{ ui.url('#top') }}" class="nav__logo" aria-label="{{ site.name }}, accueil">S<sup>2</sup></a></div>
+        <p class="cell label nav__tag">agences web</p>
         <nav class="cell nav__links" aria-label="Navigation principale">
             {% for link in site.navLinks %}
                 {{ ui.roll(link.label, link.href) }}

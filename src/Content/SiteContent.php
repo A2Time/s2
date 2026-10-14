@@ -19,7 +19,7 @@ final class SiteContent
     }
 
     /**
-     * Liens de la navbar (comme sur noth.in : trois liens, tous en « # »).
+     * Liens de la navbar : ancres des sections de l'accueil (ui.url() les fait pointer vers l'accueil depuis les autres pages).
      *
      * @return list<array{label: string, href: string}>
      */
@@ -115,6 +115,12 @@ final class SiteContent
         return 2026;
     }
 
+    /**
+     * Informations légales, utilisées par les pages « mentions légales » et « confidentialité »
+     * (templates/legal/). Mettez-les à jour ici si quelque chose change.
+     *
+     * @return array<string, string>
+     */
     public function legal(): array
     {
         return [

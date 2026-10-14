@@ -31,3 +31,18 @@ export function scrollToY(y, duration = 1.4) {
         window.scrollTo({ top: y, behavior: 'auto' });
     }
 }
+
+/**
+ * Fait défiler jusqu'à une section. Une section épinglée (pin GSAP) est mesurée par son « pin-spacer »,
+ * qui reste à sa place dans la page même quand la section est fixée à l'écran.
+ */
+export function scrollToElement(el, immediate = false) {
+    const box = el.closest('.pin-spacer') ?? el;
+    const y = Math.max(0, box.getBoundingClientRect().top + window.scrollY);
+    if (lenis) {
+        lenis.resize(); // la page a pu s'allonger (épinglages) depuis la dernière mesure de Lenis
+        lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.6, force: true });
+    } else {
+        window.scrollTo({ top: y, behavior: 'auto' });
+    }
+}

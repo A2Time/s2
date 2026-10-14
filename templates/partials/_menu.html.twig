@@ -4,7 +4,7 @@
     <div class="grid menu__grid">
         <nav class="cell menu__links" aria-label="Menu">
             {% for link in site.menuLinks %}
-                <a href="{{ link.href }}" class="menu__link" style="--i:{{ loop.index0 }}"><span>{{ link.label }}</span></a>
+                <a href="{{ ui.url(link.href) }}" class="menu__link" style="--i:{{ loop.index0 }}"><span>{{ link.label }}</span></a>
             {% endfor %}
         </nav>
         <div class="cell menu__side">

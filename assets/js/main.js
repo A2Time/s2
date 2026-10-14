@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DESKTOP, MOTION } from './motion.js';
 import { initSmoothScroll } from './smooth-scroll.js';
-import { initNav } from './nav.js';
+import { initNav, revealHash } from './nav.js';
 import { initHeroFrames } from './hero-frames.js';
 import { initHeroPitch } from './hero-pitch.js';
 import { initReel } from './reel.js';
@@ -143,6 +143,7 @@ function start() {
     initProcessAccordion();
     initTheme();
     ScrollTrigger.refresh();
+    revealHash();
 }
 
 export function boot() {

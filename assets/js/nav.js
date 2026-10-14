@@ -1,7 +1,7 @@
-import { getLenis, scrollToY } from './smooth-scroll.js';
+import { getLenis, scrollToElement, scrollToY } from './smooth-scroll.js';
 
 /**
- * Menu plein écran, liens « # » et bouton « retour en haut ».
+ * Menu plein écran, liens « # », ancres vers les sections et bouton « retour en haut ».
  */
 export function initNav() {
     const root = document.documentElement;
@@ -47,7 +47,35 @@ export function initNav() {
         }
     });
 
+    // Ancre d'une section présente sur cette page (« #projets », ou « /#contact » depuis une autre page) :
+    // défilement doux au lieu du saut du navigateur. Sinon, le lien charge l'accueil (voir revealHash).
+    document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href*="#"]');
+        if (!link || link.getAttribute('href') === '#' || event.metaKey || event.ctrlKey || event.shiftKey) {
+            return;
+        }
+        const url = new URL(link.href, location.href);
+        const target = url.pathname === location.pathname && url.hash.length > 1 && document.getElementById(url.hash.slice(1));
+        if (!target) {
+            return;
+        }
+        event.preventDefault();
+        history.replaceState(null, '', url.hash === '#top' ? location.pathname : url.hash);
+        scrollToElement(target);
+    });
+
     document.querySelectorAll('[data-top]').forEach((el) => {
         el.addEventListener('click', () => scrollToY(0, 2));
     });
+}
+
+/**
+ * Arrivée sur l'accueil avec une ancre (« /#projets » depuis les mentions légales) : le navigateur a sauté
+ * à la section avant que les épinglages GSAP n'allongent la page. Une fois tout mesuré, on s'y recale.
+ */
+export function revealHash() {
+    const target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) {
+        requestAnimationFrame(() => scrollToElement(target, true));
+    }
 }

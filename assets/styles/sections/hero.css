@@ -111,7 +111,7 @@
     z-index: 2;
      color: black;
     font-weight: 700;
-    filter: blur(0.3px);
+    filter: blur(0.2px);
     transform:
         translate(calc((1 - var(--pitch-p)) * var(--pitch-x, 0px)), calc((1 - var(--pitch-p)) * var(--pitch-y, 0px)))
         scale(calc(1 + (1 - var(--pitch-p)) * (var(--pitch-s, 1) - 1)));

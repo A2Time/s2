@@ -3,14 +3,21 @@
  # Import dans un template : {% import 'macros/ui.html.twig' as ui %}
  #}
 
+{# Adresse d'un lien. Les ancres de la page d'accueil (« #projets », « #contact »...) n'existent que sur
+   cette page : ailleurs (mentions légales...), on les fait pointer vers l'accueil, ex. « /#projets ».
+   « # » seul reste tel quel (lien pas encore défini). #}
+{% macro url(href) -%}
+    {{- href starts with '#' and href|length > 1 and app.current_route != 'app_home' ? path('app_home') ~ href : href -}}
+{%- endmacro %}
+
 {# Lien dont le texte « roule » au survol (deux copies empilées, voir .roll dans app.css). #}
 {% macro roll(label, href = '#', class = '') -%}
-    <a href="{{ href }}" class="roll{{ class ? ' ' ~ class }}"><span class="roll__in" data-text="{{ label }}">{{ label }}</span></a>
+    <a href="{{ _self.url(href) }}" class="roll{{ class ? ' ' ~ class }}"><span class="roll__in" data-text="{{ label }}">{{ label }}</span></a>
 {%- endmacro %}
 
 {# Bouton filaire avec son petit carré (le « ² » de S²). #}
 {% macro btn(label, href = '#', class = '') -%}
-    <a target="_blank" href="{{ href }}" class="btn{{ class ? ' ' ~ class }}"><span class="btn__sq" aria-hidden="true"></span>{{ label }}</a>
+    <a target="_blank" href="{{ _self.url(href) }}" class="btn{{ class ? ' ' ~ class }}"><span class="btn__sq" aria-hidden="true"></span>{{ label }}</a>
 {%- endmacro %}
 
 {# Image : « src » est un chemin AssetMapper (ex. images/projets/halo.jpg) ou une URL absolue. #}
@@ -31,6 +38,6 @@
 {# Liens en ligne séparés par « / » (réseaux, langues). « key » = champ affiché. #}
 {% macro inline_links(items, key) -%}
     {%- for item in items -%}
-        <a href="{{ item.href }}">{{ attribute(item, key) }}</a>{% if not loop.last %} / {% endif %}
+        <a href="{{ _self.url(item.href) }}">{{ attribute(item, key) }}</a>{% if not loop.last %} / {% endif %}
     {%- endfor -%}
 {%- endmacro %}
